@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject projectile;
     private float fireCountdown;
     private AudioSource audio;
-    private int strength = 3;
+    private float strength = 3;
     //public bool isInvincible = false;
 
 
@@ -87,6 +87,7 @@ public class Enemy : MonoBehaviour
         //{
         strength--;
 
+
         if (strength <= 0)
         {
             Destroy(this.gameObject);
@@ -108,6 +109,18 @@ public class Enemy : MonoBehaviour
             Projectile pro = go.GetComponent<Projectile>();
             pro.Launch(new Vector2(direction, 0), 300);
             fireCountdown = 0;
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+
+        strength -= damage;
+
+
+        if (strength <=0)
+        {
+            Destroy(this.gameObject,0.5f);
         }
     }
 

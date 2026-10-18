@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     private bool isPlaying = false;
     [SerializeField] private AudioClip collectClip;
     [SerializeField] private AudioClip footstepClip;
+    [SerializeField] private AudioClip shootClip;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour
         {
             InputSystem.actions["Attack"].Reset();
             Fire();
+            audio.PlayOneShot(shootClip, 2f);
         }
 
         if (move.x != 0 && jumpCount == 0 && !isPlaying)
@@ -116,6 +118,10 @@ public class Player : MonoBehaviour
             isJumping = false;
             animator.SetBool("IsJumping", false);
         }
+        else if (collision.gameObject.tag == "Hazard" && !isInvin)
+        {
+            PlayerHit();
+        }
         else if (collision.gameObject.tag == "EnemyProjectile" && !isInvin)
         {
             rb.linearVelocity = Vector2.zero;
@@ -130,7 +136,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void PlayerHit()
+    public void PlayerHit()
     {
         lives--;
         uiManager.setLives(lives);

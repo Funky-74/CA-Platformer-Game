@@ -8,6 +8,7 @@ TagManager:
   - Keycard
   - EnemyProjectile
   - Enemy
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player
   - EnemyProjectile
   - Enemy
-  - 
+  - Buildings
   - 
   - 
   - 
@@ -42,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 569915383
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

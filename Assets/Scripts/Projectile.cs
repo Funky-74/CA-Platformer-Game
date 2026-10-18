@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Player>() != null)
         {
-            Player p = gameObject.GetComponent<Player>();
+            Player p = other.gameObject.GetComponent<Player>();
 
             if (!p.isInvin)
             {
@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
             else
             {
                 Vector2 pos = rb.transform.position;
-                pos.x += other.gameObject.GetComponent<RectTransform>().sizeDelta.x * direction.x;
+                pos.x += other.gameObject.GetComponent<Collider2D>().bounds.size.x * direction.x;
                 rb.transform.position = pos;
             }
         }
