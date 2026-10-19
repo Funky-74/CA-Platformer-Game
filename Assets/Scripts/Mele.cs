@@ -7,7 +7,7 @@ public class Mele : MonoBehaviour
     [SerializeField] private Transform attackTransform;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private float damageAmount = 0.5f;
+    [SerializeField] private float damageAmount = 1.5f;
 
     private RaycastHit2D[] hits;
 

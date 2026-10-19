@@ -163,8 +163,9 @@ public class Player : MonoBehaviour
             audio.Play();
         }
         keycardsCollected++;
-        if (score == 4)
+        if (score == 6) //scene not loading after 6 collected
         {
+            SceneManager.LoadScene("WinScene");
             //create win scene which is then loaded here after the conition is met (made the same way as menu scene)
         }
         uiManager.setScore(keycardsCollected);
