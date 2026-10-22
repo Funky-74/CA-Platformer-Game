@@ -9,6 +9,7 @@ TagManager:
   - EnemyProjectile
   - Enemy
   - Hazard
+  - Door
   layers:
   - Default
   - TransparentFX

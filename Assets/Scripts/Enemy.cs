@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
     {
         //if(!isInvincible)
         //{
-        strength -= 0.5f;
+        strength -= 0.4f;
 
 
         if (strength <= 0)

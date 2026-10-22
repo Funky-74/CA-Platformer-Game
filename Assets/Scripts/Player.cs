@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
 
-    public int speed = 2;
+    public int speed = 5;
     private Vector2 move;
     private Rigidbody2D rb;
     private int direction = 1;
@@ -31,6 +31,12 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip collectClip;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private AudioClip shootClip;
+
+    [SerializeField] private PowerUp powerUp;
+    private float powerUpTime = 5f;
+    private float powerUpCount = 0f;
+    private bool isPower = false;
+    private Color originalColor;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -101,6 +107,23 @@ public class Player : MonoBehaviour
             animator.SetInteger("Direction", direction);
         }
         animator.SetFloat("Move", move.x);
+
+        if (isPower) //fix timer
+        {
+            powerUpCount += Time.deltaTime;
+
+            if (powerUpCount > powerUpTime)
+            {
+                isPower = false;
+                powerUpCount = 0f;
+
+               speed = 5;
+               this.GetComponent<SpriteRenderer>().color = originalColor;
+
+
+
+            }
+        }
     }
 
     void FixedUpdate()
@@ -133,6 +156,14 @@ public class Player : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             Destroy(collision.gameObject);
         }
+        else if(collision.gameObject.tag == "Door")
+        {
+            if (keycardsCollected == 6) 
+            {
+                SceneManager.LoadScene("WinScene");
+               
+            }
+        }
 
     }
 
@@ -163,18 +194,8 @@ public class Player : MonoBehaviour
             audio.Play();
         }
         keycardsCollected++;
-        if (score == 6) //scene not loading after 6 collected
-        {
-            SceneManager.LoadScene("WinScene");
-            //create win scene which is then loaded here after the conition is met (made the same way as menu scene)
-        }
+        
         uiManager.setScore(keycardsCollected);
-    }
-
-
-    public void reachCheckpoint()
-    {
-        lastCheckpoint = rb.transform.position;
     }
 
     public void PlayFootStep()
