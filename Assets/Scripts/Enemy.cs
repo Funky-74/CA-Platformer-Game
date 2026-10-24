@@ -13,9 +13,13 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float FireTimer = 0.5f;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private float bulletDamage = 0.4f;
     private float fireCountdown;
     private AudioSource audio;
-    private float strength = 3;
+    [SerializeField] private AudioClip shootClip;
+    private bool isPlaying = false;
+    [SerializeField] private float strength = 3;
+    private Player playerScript;
     //public bool isInvincible = false;
 
 
@@ -27,6 +31,7 @@ public class Enemy : MonoBehaviour
         animator.SetFloat("Direction", direction);
         animator.SetFloat("Move", direction);
         audio = GetComponent<AudioSource>();
+        playerScript = FindAnyObjectByType<Player>();
     }
 
     // Update is called once per frame
@@ -85,7 +90,7 @@ public class Enemy : MonoBehaviour
     {
         //if(!isInvincible)
         //{
-        strength -= 0.4f;
+        strength -=playerScript.bulletDamage;
 
 
         if (strength <= 0)
@@ -109,6 +114,7 @@ public class Enemy : MonoBehaviour
             Projectile pro = go.GetComponent<Projectile>();
             pro.Launch(new Vector2(direction, 0), 300);
             fireCountdown = 0;
+            audio.PlayOneShot(shootClip, 2f);
         }
     }
 

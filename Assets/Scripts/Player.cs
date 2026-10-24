@@ -21,11 +21,14 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private UIManager uiManager;
     private int lives = 3;
+    public float bulletDamage = 0.4f;
     private Vector2 lastCheckpoint;
     //for invincibility
     private float invincibilityTime = 1.5f;
     private float invincibilityCount = 0f;
     public bool isInvin = false;
+    private float fireRate = 0.25f;
+    private float timeOfLastShot;
     private AudioSource audio;
     private bool isPlaying = false;
     [SerializeField] private AudioClip collectClip;
@@ -33,7 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip shootClip;
 
     [SerializeField] private PowerUp powerUp;
-    private float powerUpTime = 5f;
+    private float powerUpTime = 10f;
     private float powerUpCount = 0f;
     private bool isPower = false;
     private Color originalColor;
@@ -47,13 +50,17 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         jumpCount = jumpCountBase;
         lastCheckpoint = rb.transform.position;
+
+        originalColor = GetComponent<SpriteRenderer>().color;
+
     }
 
     private void Fire()
-    {
-        GameObject go = Instantiate(projectilePrefab, rb.transform.position, Quaternion.identity);
-        Projectile pro = go.GetComponent<Projectile>();
-        pro.Launch(new Vector2(-direction, 0), 600);
+    {  
+            GameObject go = Instantiate(projectilePrefab, rb.transform.position, Quaternion.identity);
+            Projectile pro = go.GetComponent<Projectile>();
+            pro.Launch(new Vector2(-direction, 0), 600);
+        
     }
 
     // Update is called once per frame
@@ -73,9 +80,13 @@ public class Player : MonoBehaviour
 
         if (InputSystem.actions["Attack"].IsPressed())
         {
-            InputSystem.actions["Attack"].Reset();
-            Fire();
-            audio.PlayOneShot(shootClip, 2f);
+            if (Time.time - timeOfLastShot >= fireRate)
+            {
+                InputSystem.actions["Attack"].Reset();
+                Fire();
+                audio.PlayOneShot(shootClip, 2f);
+                timeOfLastShot = Time.time;
+            }
         }
 
         if (move.x != 0 && jumpCount == 0 && !isPlaying)
@@ -108,7 +119,8 @@ public class Player : MonoBehaviour
         }
         animator.SetFloat("Move", move.x);
 
-        if (isPower) //fix timer
+
+        if (isPower) 
         {
             powerUpCount += Time.deltaTime;
 
@@ -117,11 +129,9 @@ public class Player : MonoBehaviour
                 isPower = false;
                 powerUpCount = 0f;
 
-               speed = 5;
-               this.GetComponent<SpriteRenderer>().color = originalColor;
-
-
-
+                speed = 5;
+                bulletDamage = 0.4f;
+                GetComponent<SpriteRenderer>().color = originalColor;
             }
         }
     }
@@ -174,11 +184,21 @@ public class Player : MonoBehaviour
         rb.transform.position = lastCheckpoint;
         if (lives == 0)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("GameOverScene");
 
         }
         isInvin = true;
         this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+    }
+
+    public void ActivatePowerUp()
+    {
+        speed = 10;
+        bulletDamage = 1;
+        isPower = true;
+        powerUpCount = 0f;
+
+        GetComponent<SpriteRenderer>().color = new Color(0.53f, 0.81f, 0.92f, 1f);
     }
 
     public void AddKeycard()
