@@ -34,12 +34,13 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip collectClip;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private AudioClip shootClip;
+    [SerializeField] private AudioClip keycardFailureClip;
 
-    [SerializeField] private PowerUp powerUp;
-    private float powerUpTime = 10f;
+
+    private PowerUp powerUp;
+    private float powerUpTime = 12f;
     private float powerUpCount = 0f;
     private bool isPower = false;
-    private Color originalColor;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,7 +52,6 @@ public class Player : MonoBehaviour
         jumpCount = jumpCountBase;
         lastCheckpoint = rb.transform.position;
 
-        originalColor = GetComponent<SpriteRenderer>().color;
 
     }
 
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
 
                 speed = 5;
                 bulletDamage = 0.4f;
-                GetComponent<SpriteRenderer>().color = originalColor;
+                this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
             }
         }
     }
@@ -172,6 +172,10 @@ public class Player : MonoBehaviour
             {
                 SceneManager.LoadScene("WinScene");
                
+            }
+            else
+            {
+                audio.PlayOneShot(keycardFailureClip, 2f);
             }
         }
 
@@ -220,9 +224,9 @@ public class Player : MonoBehaviour
 
     public void PlayFootStep()
     {
-        if(audio != null && footstepClip != null) //make simpler
-        {
-            audio.PlayOneShot(footstepClip, 2f);
-        }
+        //if(audio != null && footstepClip != null) //make simpler
+        //{
+            audio.PlayOneShot(footstepClip, 1.5f);
+        //}
     }
 }

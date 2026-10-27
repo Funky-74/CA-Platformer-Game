@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class Mele : MonoBehaviour
 {
+
+    //tutorial followed - https://www.youtube.com/watch?v=oGW9UQQh-6w
+
 
     [SerializeField] private Transform attackTransform;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float damageAmount = 1.5f;
+    private AudioSource audio;
+    [SerializeField] private AudioClip meleClip;
 
     private RaycastHit2D[] hits;
 
@@ -15,6 +19,7 @@ public class Mele : MonoBehaviour
 
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
     }
 
@@ -25,6 +30,7 @@ public class Mele : MonoBehaviour
         {
             Attack2();
             anim.SetTrigger("Mele");
+            audio.PlayOneShot(meleClip, 2f);
         }
     }
 
@@ -45,8 +51,7 @@ public class Mele : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (attackTransform == null) return;
-
+        //draws red sphere to show area affected by mele
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackTransform.position, attackRange);
     }

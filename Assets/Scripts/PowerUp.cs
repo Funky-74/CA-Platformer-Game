@@ -1,8 +1,11 @@
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using static System.Net.WebRequestMethods;
 
 public class PowerUp : MonoBehaviour
 {
+    //tutorial followed - https://www.youtube.com/watch?v=AKalonPmWwE
+
     private float floatTime = 0.5f;
     private float timePassed = 0;
     private int direction = 1;
