@@ -12,14 +12,12 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float FireTimer = 0.5f;
     [SerializeField] private GameObject projectile;
-    [SerializeField] private float bulletDamage = 0.4f;
     private float fireCountdown;
     private AudioSource audio;
     [SerializeField] private AudioClip shootClip;
     private bool isPlaying = false;
     [SerializeField] private float strength = 3;
     private Player playerScript;
-    //public bool isInvincible = false;
 
 
 
@@ -87,8 +85,6 @@ public class Enemy : MonoBehaviour
 
     private void hit()
     {
-        //if(!isInvincible)
-        //{
         strength -=playerScript.bulletDamage;
 
 
@@ -99,9 +95,6 @@ public class Enemy : MonoBehaviour
 
         }
 
-        //isInvincible = true;
-        //this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-        //}
     }
 
 

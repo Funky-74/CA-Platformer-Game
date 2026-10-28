@@ -12,9 +12,10 @@ public class PowerUp : MonoBehaviour
     private Player playerScript;
     void Update()
     {
+        //controls direction and speed power up sprite moves in place
         Vector2 position = transform.position;
 
-        position.y += direction * 0.5f * Time.deltaTime; // 0.5f controls speed its going up and down at
+        position.y += direction * 0.5f * Time.deltaTime; 
         transform.position = position;
 
         timePassed += Time.deltaTime;

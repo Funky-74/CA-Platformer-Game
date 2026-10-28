@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+
+    //tutorial used - https://www.youtube.com/watch?v=GtX1p4cwYOc
+
     public float speed;
     public int startingPoint;
     public Transform[] points;
@@ -9,7 +12,7 @@ public class MovingPlatform : MonoBehaviour
     
     void Start()
     {
-        transform.position = points[startingPoint].position; //setting position of platofrm to position of one of the points using index 'starting point'
+        transform.position = points[startingPoint].position; //setting position of platform to the chosen position in the startingPoint variable
     }
 
     // Update is called once per frame
@@ -19,7 +22,7 @@ public class MovingPlatform : MonoBehaviour
         if(Vector2.Distance(transform.position, points[i].position) < 0.02f)
         {
             i++;
-            if(i == points.Length) //checks if plaatform was at last point after index increases
+            if(i == points.Length) //checks if platform was at last point after index increases
             {
                 i = 0; //reset index
             }
@@ -29,12 +32,4 @@ public class MovingPlatform : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        collision.transform.SetParent(transform);
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        collision.transform.SetParent(null);
-    }*/
 }

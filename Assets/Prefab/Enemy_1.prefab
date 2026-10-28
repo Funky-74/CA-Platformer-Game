@@ -172,7 +172,6 @@ MonoBehaviour:
   direction: 1
   FireTimer: 0.5
   projectile: {fileID: 2746951509237068643, guid: 2c72d330de0bf494fb59b881e9ac25a7, type: 3}
-  bulletDamage: 0.4
   shootClip: {fileID: 8300000, guid: 205d025bcc531894d9d5de23cdc06725, type: 3}
   strength: 3
 --- !u!50 &7267597200195589977

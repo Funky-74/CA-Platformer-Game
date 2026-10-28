@@ -36,10 +36,13 @@ public class Mele : MonoBehaviour
 
     private void Attack2()
     {
+        //checks for colliders within the attacks circular range
         hits = Physics2D.CircleCastAll(attackTransform.position, attackRange, transform.right, 0f, enemyLayer);
 
+        //loops through every collider detected by attack
         for (int i=0; i < hits.Length; i++)
         {
+            //finds corresponding enemy script
             Enemy enemy = hits[i].collider.GetComponent<Enemy>();
 
             if(enemy != null)

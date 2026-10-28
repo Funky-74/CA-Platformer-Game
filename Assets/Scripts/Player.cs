@@ -17,13 +17,12 @@ public class Player : MonoBehaviour
     public int jumpCountBase = 2;
     private int jumpCount;
     private bool isJumping = false;
-    private int score = 0;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private UIManager uiManager;
     private int lives = 3;
     public float bulletDamage = 0.4f;
     private Vector2 lastCheckpoint;
-    //for invincibility
+    //invincibility
     private float invincibilityTime = 1.5f;
     private float invincibilityCount = 0f;
     public bool isInvin = false;
@@ -31,13 +30,12 @@ public class Player : MonoBehaviour
     private float timeOfLastShot;
     private AudioSource audio;
     private bool isPlaying = false;
+    //audio
     [SerializeField] private AudioClip collectClip;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private AudioClip shootClip;
     [SerializeField] private AudioClip keycardFailureClip;
-
-
-    private PowerUp powerUp;
+    //power up
     private float powerUpTime = 12f;
     private float powerUpCount = 0f;
     private bool isPower = false;
@@ -60,13 +58,17 @@ public class Player : MonoBehaviour
             GameObject go = Instantiate(projectilePrefab, rb.transform.position, Quaternion.identity);
             Projectile pro = go.GetComponent<Projectile>();
             pro.Launch(new Vector2(-direction, 0), 600);
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         move = InputSystem.actions["Move"].ReadValue<Vector2>();
+
+        bool attacking = InputSystem.actions["Attack"].IsPressed(); //remove
+
+        animator.SetBool("IsShooting", attacking && move.x != 0); //remove
 
         if (InputSystem.actions["Jump"].IsPressed() && jumpCount > 0)
         {
@@ -78,15 +80,22 @@ public class Player : MonoBehaviour
             jumpCount -= 1;
         }
 
-        if (InputSystem.actions["Attack"].IsPressed())
+        if(attacking)
+        //if (InputSystem.actions["Attack"].IsPressed())
         {
+            
             if (Time.time - timeOfLastShot >= fireRate)
             {
-                InputSystem.actions["Attack"].Reset();
+                //InputSystem.actions["Attack"].Reset();
                 Fire();
+                animator.SetTrigger("Shoot");
                 audio.PlayOneShot(shootClip, 2f);
                 timeOfLastShot = Time.time;
             }
+        }
+        else
+        {
+            animator.SetBool("IsShooting", false);
         }
 
         if (move.x != 0 && jumpCount == 0 && !isPlaying)
@@ -224,9 +233,7 @@ public class Player : MonoBehaviour
 
     public void PlayFootStep()
     {
-        //if(audio != null && footstepClip != null) //make simpler
-        //{
             audio.PlayOneShot(footstepClip, 1.5f);
-        //}
+
     }
 }
