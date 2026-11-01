@@ -10,13 +10,13 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
-    [SerializeField] private float FireTimer = 0.5f;
+    [SerializeField] private float FireTimer;
     [SerializeField] private GameObject projectile;
     private float fireCountdown;
     private AudioSource audio;
     [SerializeField] private AudioClip shootClip;
-    private bool isPlaying = false;
-    [SerializeField] private float strength = 3;
+    [SerializeField] private AudioClip footstepClip;
+    [SerializeField] private float strength;
     private Player playerScript;
 
 
@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
         }
 
         elapsedTime += Time.deltaTime;
+
     }
 
     private void FixedUpdate()
@@ -122,6 +123,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void PlayFootStep()
+    {
+        audio.PlayOneShot(footstepClip, 3f);
+    }
 
 
 

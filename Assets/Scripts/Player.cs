@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private float invincibilityTime = 1.5f;
     private float invincibilityCount = 0f;
     public bool isInvin = false;
-    private float fireRate = 0.25f;
+    private float fireRate = 0.5f; 
     private float timeOfLastShot;
     private AudioSource audio;
     private bool isPlaying = false;
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip collectClip;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private AudioClip shootClip;
+    [SerializeField] private AudioClip powerupClip;
     [SerializeField] private AudioClip keycardFailureClip;
     //power up
     private float powerUpTime = 12f;
@@ -66,10 +67,6 @@ public class Player : MonoBehaviour
     {
         move = InputSystem.actions["Move"].ReadValue<Vector2>();
 
-        bool attacking = InputSystem.actions["Attack"].IsPressed(); //remove
-
-        animator.SetBool("IsShooting", attacking && move.x != 0); //remove
-
         if (InputSystem.actions["Jump"].IsPressed() && jumpCount > 0)
         {
             isJumping = true;
@@ -80,22 +77,27 @@ public class Player : MonoBehaviour
             jumpCount -= 1;
         }
 
-        if(attacking)
-        //if (InputSystem.actions["Attack"].IsPressed())
+        if (InputSystem.actions["Attack"].IsPressed() && move.x==0) //only play shoot anim when idle
         {
             
             if (Time.time - timeOfLastShot >= fireRate)
             {
-                //InputSystem.actions["Attack"].Reset();
+                InputSystem.actions["Attack"].Reset();
                 Fire();
+                audio.PlayOneShot(shootClip, 2f);
+                timeOfLastShot = Time.time;
                 animator.SetTrigger("Shoot");
+            }
+        }
+        else if(InputSystem.actions["Attack"].IsPressed() && move.x != 0)// if running and shooting it doesnt play
+        {
+            if (Time.time - timeOfLastShot >= fireRate)
+            {
+                InputSystem.actions["Attack"].Reset();
+                Fire();
                 audio.PlayOneShot(shootClip, 2f);
                 timeOfLastShot = Time.time;
             }
-        }
-        else
-        {
-            animator.SetBool("IsShooting", false);
         }
 
         if (move.x != 0 && jumpCount == 0 && !isPlaying)
@@ -103,7 +105,7 @@ public class Player : MonoBehaviour
             audio.Play();
             isPlaying = true;
         }
-        if (isPlaying && (jumpCount > 0 || move.x == 0))
+        if (isPlaying && (move.x == 0 || jumpCount > 0))
         {
             audio.Pause();
             isPlaying = false;
@@ -210,6 +212,8 @@ public class Player : MonoBehaviour
         bulletDamage = 1;
         isPower = true;
         powerUpCount = 0f;
+
+        audio.PlayOneShot(powerupClip);
 
         GetComponent<SpriteRenderer>().color = new Color(0.53f, 0.81f, 0.92f, 1f);
     }

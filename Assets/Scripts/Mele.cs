@@ -7,9 +7,9 @@ public class Mele : MonoBehaviour
 
 
     [SerializeField] private Transform attackTransform;
-    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackRange;
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private float damageAmount = 1.5f;
+    [SerializeField] private float damageAmount;
     private AudioSource audio;
     [SerializeField] private AudioClip meleClip;
 

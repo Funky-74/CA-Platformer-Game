@@ -84,7 +84,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4035959289877228764, guid: ac4c8f64c8a27234eb5a1e780f28b2ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -168,11 +168,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   walkTime: 2
-  idleTime: 1
+  idleTime: 2
   direction: 1
   FireTimer: 0.5
   projectile: {fileID: 2746951509237068643, guid: 2c72d330de0bf494fb59b881e9ac25a7, type: 3}
   shootClip: {fileID: 8300000, guid: 205d025bcc531894d9d5de23cdc06725, type: 3}
+  footstepClip: {fileID: 8300000, guid: ab6482adbd78dc1408076ee02196b256, type: 3}
   strength: 3
 --- !u!50 &7267597200195589977
 Rigidbody2D:
@@ -208,15 +209,15 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2355172024888900822}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: f91339aaec626234abcea6b484b64c06, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

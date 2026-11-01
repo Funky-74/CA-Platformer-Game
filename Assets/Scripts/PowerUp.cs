@@ -1,6 +1,5 @@
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using static System.Net.WebRequestMethods;
 
 public class PowerUp : MonoBehaviour
 {
