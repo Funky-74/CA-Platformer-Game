@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void hit()
+    private void hit() // takes projectile damage
     {
         strength -=playerScript.bulletDamage;
 
@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage) // takes mele damage
     {
 
         strength -= damage;

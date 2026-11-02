@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
 
                 speed = 5;
                 bulletDamage = 0.4f;
-                this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
+                this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f); // change player colour back to normal
             }
         }
     }
@@ -215,7 +215,7 @@ public class Player : MonoBehaviour
 
         audio.PlayOneShot(powerupClip);
 
-        GetComponent<SpriteRenderer>().color = new Color(0.53f, 0.81f, 0.92f, 1f);
+        GetComponent<SpriteRenderer>().color = new Color(0.53f, 0.81f, 0.92f, 1f); // change player colour to blue
     }
 
     public void AddKeycard()
@@ -237,7 +237,7 @@ public class Player : MonoBehaviour
 
     public void PlayFootStep()
     {
-            audio.PlayOneShot(footstepClip, 1.5f);
+        audio.PlayOneShot(footstepClip, 1.5f);
 
     }
 }

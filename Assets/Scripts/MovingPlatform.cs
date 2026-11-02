@@ -15,7 +15,7 @@ public class MovingPlatform : MonoBehaviour
         transform.position = points[startingPoint].position; //setting position of platform to the chosen position in the startingPoint variable
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         //checks distance of platform and point
