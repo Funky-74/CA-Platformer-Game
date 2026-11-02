@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private float strength;
     private Player playerScript;
+    [SerializeField] EnemyHealthBar healthbar;
 
 
 
@@ -29,6 +30,8 @@ public class Enemy : MonoBehaviour
         animator.SetFloat("Move", direction);
         audio = GetComponent<AudioSource>();
         playerScript = FindAnyObjectByType<Player>();
+        healthbar = GetComponentInChildren<EnemyHealthBar>();
+        healthbar.UpdateHealthBar(strength);
     }
 
     // Update is called once per frame
@@ -87,7 +90,7 @@ public class Enemy : MonoBehaviour
     private void hit() // takes projectile damage
     {
         strength -=playerScript.bulletDamage;
-
+        healthbar.UpdateHealthBar(strength);
 
         if (strength <= 0)
         {
@@ -115,6 +118,7 @@ public class Enemy : MonoBehaviour
     {
 
         strength -= damage;
+        healthbar.UpdateHealthBar(strength);
 
 
         if (strength <=0)
