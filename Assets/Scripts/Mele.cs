@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 public class Mele : MonoBehaviour
 {
 
-    //tutorial followed - https://www.youtube.com/watch?v=oGW9UQQh-6w
-
 
     [SerializeField] private Transform attackTransform;
     [SerializeField] private float attackRange;

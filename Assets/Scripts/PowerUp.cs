@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    //tutorial followed - https://www.youtube.com/watch?v=AKalonPmWwE
 
     private float floatTime = 0.5f;
     private float timePassed = 0;

@@ -3,8 +3,6 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
 
-    //tutorial used - https://www.youtube.com/watch?v=GtX1p4cwYOc
-
     public float speed;
     public int startingPoint;
     public Transform[] points;
